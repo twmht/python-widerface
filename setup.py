@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 NAME = 'python-widerface'
-VERSION = '0.1'
+VERSION = '0.1.1'
 
 # Compile the list of packages available, because distutils doesn't have
 # an easy way to do this.
@@ -33,7 +33,7 @@ for dirpath, dirnames, filenames in os.walk(srcdir):
             data_files.append(os.path.join(prefix, f))
 
 try:
-    f = open(os.path.join(os.path.dirname(__file__), 'README.md'))
+    f = open(os.path.join(os.path.dirname(__file__), 'README.rst'))
     long_description = f.read().strip()
     f.close()
 except:
@@ -45,7 +45,7 @@ setup(name=NAME,
       author='Ming Hsaun Tu',
       author_email='qrnnis2623891@gmail.com',
       license='Apache Software License',
-      url='https://github.com/twmht/python-wider.git',
+      url='https://github.com/twmht/python-widerface',
       package_dir={'wider': 'wider'},
       packages=packages,
       package_data={'wider': data_files},
