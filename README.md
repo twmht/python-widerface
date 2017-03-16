@@ -1,7 +1,9 @@
 # python-wider
-Simple WIDER data parser written in python
+Simple WIDERFACE data parser written in python
 
-WIDER is a database of face bounding boxes available on http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/.
+WIDERFACE is a database of face bounding boxes available on http://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/.
+
+You can download the database via `python get_data.py`
 
 ## Requirement
 h5py(v2.6.0)
