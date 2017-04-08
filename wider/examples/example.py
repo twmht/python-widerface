@@ -1,4 +1,4 @@
-from wider.wider import WIDER
+from wider import WIDER
 import matplotlib.pyplot as plt
 import cv2
 
