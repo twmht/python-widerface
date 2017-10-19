@@ -6,7 +6,7 @@ except ImportError:
     from distutils.core import setup
 
 NAME = 'python-widerface'
-VERSION = '0.1.2'
+VERSION = '0.2.1'
 
 # Compile the list of packages available, because distutils doesn't have
 # an easy way to do this.

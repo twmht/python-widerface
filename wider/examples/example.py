@@ -2,9 +2,12 @@ from wider import WIDER
 import matplotlib.pyplot as plt
 import cv2
 
-wider = WIDER('/home/tumh/python-wider/data/v1',
-              '/home/tumh/python-wider/data/WIDER_train/images',
-              'wider_face_train.mat')
+# arg1: path to label
+# arg2: path to images
+# arg3: label file name
+wider = WIDER('/home/tumh/wider_face_split',
+              '/home/tumh/WIDER_val/images',
+              'wider_face_val.mat')
 
 
 # press ctrl-C to stop the process

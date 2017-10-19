@@ -1,5 +1,6 @@
-import h5py
+import matplotlib.pyplot as plt
 import os
+import scipy.io
 
 
 class DATA(object):
@@ -9,33 +10,43 @@ class DATA(object):
 
 
 class WIDER(object):
+    """
+    Build a wider parser
+
+    Parameters
+    ----------
+    path_to_label : path of the label file
+    path_to_image : path of the image files
+    fname : name of the label file
+
+    Returns
+    -------
+    a wider parser
+    """
     def __init__(self, path_to_label, path_to_image, fname):
         self.path_to_label = path_to_label
         self.path_to_image = path_to_image
 
-        self.f = h5py.File(os.path.join(path_to_label, fname), 'r')
+        self.f = scipy.io.loadmat(os.path.join(path_to_label, fname))
         self.event_list = self.f.get('event_list')
         self.file_list = self.f.get('file_list')
         self.face_bbx_list = self.f.get('face_bbx_list')
 
     def next(self):
-
-        for event_idx, event in enumerate(self.event_list.value[0]):
-            directory = self.f[event].value.tostring().decode('utf-16')
-            for im_idx, im in enumerate(
-                    self.f[self.file_list.value[0][event_idx]].value[0]):
-
-                im_name = self.f[im].value.tostring().decode('utf-16')
-                face_bbx = self.f[self.f[self.face_bbx_list.value
-                                  [0][event_idx]].value[0][im_idx]].value
+        for event_idx, event in enumerate(self.event_list):
+            directory = event[0][0]
+            for im_idx, im in enumerate(self.file_list[event_idx][0]):
+                im_name = im[0][0]
+                face_bbx = self.face_bbx_list[event_idx][0][im_idx][0]
+                #  print face_bbx.shape
 
                 bboxes = []
 
-                for i in range(face_bbx.shape[1]):
-                    xmin = int(face_bbx[0][i])
-                    ymin = int(face_bbx[1][i])
-                    xmax = int(face_bbx[0][i] + face_bbx[2][i])
-                    ymax = int(face_bbx[1][i] + face_bbx[3][i])
+                for i in range(face_bbx.shape[0]):
+                    xmin = int(face_bbx[i][0])
+                    ymin = int(face_bbx[i][1])
+                    xmax = int(face_bbx[i][2]) + xmin
+                    ymax = int(face_bbx[i][3]) + ymin
                     bboxes.append((xmin, ymin, xmax, ymax))
 
                 yield DATA(os.path.join(self.path_to_image, directory,
